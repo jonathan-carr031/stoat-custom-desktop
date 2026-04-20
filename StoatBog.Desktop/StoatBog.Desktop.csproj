@@ -5,6 +5,7 @@
         See https://docs.avaloniaui.net/docs/guides/platforms/platform-specific-code/dotnet for more details.-->
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
+        <RootNamespace>AvaloniaApplication1.Desktop</RootNamespace>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -22,6 +23,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\AvaloniaApplication1\AvaloniaApplication1.csproj"/>
+        <ProjectReference Include="..\StoatBog\StoatBog.csproj" />
     </ItemGroup>
 </Project>

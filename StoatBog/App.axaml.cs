@@ -13,7 +13,7 @@ namespace AvaloniaApplication1;
 
 public partial class App : Application
 {
-    private readonly Uri _iconUri = new("avares://AvaloniaApplication1/Assets/Images/icon.ico");
+    private readonly Uri _iconUri = new("avares://StoatBog/Assets/Images/icon.ico");
 
     public override void Initialize()
     {
@@ -72,7 +72,7 @@ public partial class App : Application
         ClearTrayIcons();
     }
 
-    private void QuitApplication()
+    private static void QuitApplication()
     {
         if (Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {

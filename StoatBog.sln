@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaApplication1", "AvaloniaApplication1\AvaloniaApplication1.csproj", "{217D086E-FC39-4EF9-860E-E4E1D1306761}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoatBog", "StoatBog\StoatBog.csproj", "{217D086E-FC39-4EF9-860E-E4E1D1306761}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaApplication1.Desktop", "AvaloniaApplication1.Desktop\AvaloniaApplication1.Desktop.csproj", "{FB4EBC18-67F3-4063-803D-71D0AD213EFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoatBog.Desktop", "StoatBog.Desktop\StoatBog.Desktop.csproj", "{FB4EBC18-67F3-4063-803D-71D0AD213EFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

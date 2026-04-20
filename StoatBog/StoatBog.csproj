@@ -5,6 +5,7 @@
         <LangVersion>latest</LangVersion>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
         <PublishAot>true</PublishAot>
+        <RootNamespace>AvaloniaApplication1</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
