@@ -94,14 +94,13 @@ public partial class App : Application
                 Command = clickCommand,
                 Menu =
                 [
-                    /*new NativeMenuItem("Settings")
+                    new NativeMenuItem("About")
                     {
                         Menu =
                         [
-                            new NativeMenuItem("Option 1"),
-                            new NativeMenuItem("Option 2")
+                            new NativeMenuItem("v1.0.1")
                         ]
-                    },*/
+                    },
                     new NativeMenuItemSeparator(),
                     new NativeMenuItem("Quit Application")
                     {

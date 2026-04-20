@@ -23,8 +23,8 @@
         </PackageReference>
         <PackageReference Include="CommunityToolkit.Mvvm"/>
         <PackageReference Include="LibVLCSharp.Avalonia" />
-        <PackageReference Include="NetSparkleUpdater.UI.Avalonia" />
         <PackageReference Include="ReactiveUI" />
+        <PackageReference Include="Updatum" />
     </ItemGroup>
 
     <PropertyGroup>
