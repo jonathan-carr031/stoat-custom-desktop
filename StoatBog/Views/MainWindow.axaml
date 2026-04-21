@@ -7,10 +7,11 @@
         x:Class="AvaloniaApplication1.Views.MainWindow"
         Icon="/Assets/Images/icon.ico"
         Title="Stoat">
-    
+
     <!-- <Button Content="Manual Update Check" -->
     <!--     Command="{CompiledBinding $parent[ui:MainWindow].ManualUpdateCheck_Click}" -->
     <!--     Width="150"/> -->
 
-    <NativeWebView Source="https://chat.whalestargroup.com"/>
+    <NativeWebView Source="https://chat.whalestargroup.com"
+                   NewWindowRequested="NewWindowRequested_EventHandler" />
 </Window>
