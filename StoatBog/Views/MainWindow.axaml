@@ -6,12 +6,10 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AvaloniaApplication1.Views.MainWindow"
         Icon="/Assets/Images/icon.ico"
-        Title="Stoat">
+        Title="StoatBog"
+        x:DataType="ui:MainWindow">
 
-    <!-- <Button Content="Manual Update Check" -->
-    <!--     Command="{CompiledBinding $parent[ui:MainWindow].ManualUpdateCheck_Click}" -->
-    <!--     Width="150"/> -->
-
-    <NativeWebView Source="https://chat.whalestargroup.com"
-                   NewWindowRequested="NewWindowRequested_EventHandler" />
+    <NativeWebView Source="https://chat.whalestargroup.com" Focusable="False"
+                   NewWindowRequested="NewWindowRequested_EventHandler"
+                   />
 </Window>
