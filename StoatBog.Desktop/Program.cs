@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Avalonia;
+using AvaloniaApplication1;
 using Updatum;
 
-namespace AvaloniaApplication1.Desktop;
+namespace StoatBog.Desktop;
 
 internal sealed class Program
 {
@@ -11,7 +12,7 @@ internal sealed class Program
     {
         InstallUpdateWindowsInstallerArguments = "/qb" // Displays a basic user interface for MSI package
     };
-    
+
     // Initialization code. Don't use any Avalonia, third-party APIs or any
     // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
     // yet and stuff might break.
@@ -19,13 +20,11 @@ internal sealed class Program
     public static void Main(string[] args)
     {
         _ = CheckForUpdates();
-        
+
         BuildAvaloniaApp()
             .StartWithClassicDesktopLifetime(args);
     }
 
-
-    
 
     // Avalonia configuration, don't remove; also used by visual designer.
     private static AppBuilder BuildAvaloniaApp()
@@ -36,9 +35,9 @@ internal sealed class Program
 #endif
             .WithInterFont()
             .LogToTrace();
-    
+
     private static async Task CheckForUpdates()
-    { 
+    {
         try
         {
             var updateFound = await AppUpdater.CheckForUpdatesAsync();
@@ -47,7 +46,7 @@ internal sealed class Program
             // Optional show a message to the user with the changelog
             Console.WriteLine("Changelog:");
             Console.WriteLine(AppUpdater.GetChangelog());
-            
+
             var downloadedAsset = await AppUpdater.DownloadUpdateAsync();
 
             if (downloadedAsset == null)

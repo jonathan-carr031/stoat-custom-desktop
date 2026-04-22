@@ -3,7 +3,7 @@
 ; Non-commercial use only
 
 #define MyAppName "StoatBog"
-#define MyAppVersion "0.0.1"
+#define MyAppVersion "1.0.1"
 #define MyAppPublisher "TheBoginites"
 #define MyAppURL "https://www.example.com/"
 #define MyAppExeName "StoatBog.exe"
@@ -36,7 +36,7 @@ ChangesAssociations=yes
 DisableProgramGroupPage=yes
 ; Remove the following line to run in administrative install mode (install for all users).
 PrivilegesRequired=lowest
-OutputBaseFilename={#MyAppName}Installer
+OutputBaseFilename={#MyAppName}_win-x64-v{#MyAppVersion}
 SetupIconFile=.\StoatBog\Assets\Images\icon.ico
 SolidCompression=yes
 WizardStyle=modern dynamic
@@ -48,7 +48,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\jonat\Downloads\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: ".\publish\win-x64\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\StoatBog\Assets\Images\icon.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
