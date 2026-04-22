@@ -32,3 +32,8 @@ jobs:
       run: mv "publish/win-x64/StoatBog.Desktop.exe" "publish/win-x64/StoatBog.exe"
     - name: Create Installer
       run: echo "create installer"
+    - name: Inno Setup Action
+      uses: Minionguyjpro/Inno-Setup-Action@v1.2.7
+      with:
+        path:  StoatBogInstaller.iss
+        
