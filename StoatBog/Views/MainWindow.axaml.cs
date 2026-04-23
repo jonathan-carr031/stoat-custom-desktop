@@ -8,13 +8,17 @@ namespace AvaloniaApplication1.Views;
 
 public partial class MainWindow : Window
 {
-    private readonly NativeWebView? _nativeWebView;
+    private readonly Panel? _webViewContainer;
+    private NativeWebView? _nativeWebView;
+    private DateTime _sessionExpirationDate = DateTime.Now;
+
 
     public MainWindow()
     {
         InitializeComponent();
 
         _nativeWebView = this.FindControl<NativeWebView>("StoatWebView");
+        _webViewContainer = this.FindControl<Panel>("WebViewContainer");
     }
 
     private void NavigationStarted_EventHandler(object? sender, WebViewNavigationStartingEventArgs e)
@@ -57,15 +61,31 @@ public partial class MainWindow : Window
         {
             var cookies = await cookieManager.GetCookiesAsync();
 
-            foreach (var cookie in cookies)
+            var authenticCookie = cookies.First(cookie => cookie.Name == "authentik_proxy_72cd35ff");
+
+            if (_sessionExpirationDate != authenticCookie.Expires)
             {
-                if (cookie.Expires < DateTime.UtcNow || cookie.Expired)
-                    Debug.WriteLine($"{cookie.Name} is Expired. It expired on {cookie.Expires.ToLocalTime()}");
-
-                Debug.WriteLine($"{cookie.Name}: {cookie.Value} - Expires: {cookie.Expires}");
+                _sessionExpirationDate = authenticCookie.Expires;
+                ReCreateWebView();
             }
-
-            Console.WriteLine(cookies.First(c => c.Name == "session_id").Value);
         }
+    }
+
+    private void ReCreateWebView()
+    {
+        _webViewContainer?.Children.Clear();
+
+        var nativeWebView = new NativeWebView
+        {
+            Source = new Uri("https://chat.whalestargroup.com/app")
+        };
+        nativeWebView.NavigationStarted += NavigationStarted_EventHandler;
+        nativeWebView.NavigationCompleted += NavigationCompleted_EventHandler;
+        nativeWebView.NewWindowRequested += NewWindowRequested_EventHandler;
+        nativeWebView.Focusable = false;
+
+        _webViewContainer?.Children.Add(nativeWebView);
+
+        _nativeWebView = nativeWebView;
     }
 }
