@@ -22,8 +22,14 @@ jobs:
         dotnet-version: 9.0.x
     - name: Restore dependencies
       run: dotnet restore StoatBog.sln
+    - name: Get next version
+      uses: reecetech/version-increment@2024.10.1
+      id: version
+      with:
+        scheme: semver
+        increment: patch
     - name: Build
-      run: dotnet build --no-restore StoatBog.sln
+      run: dotnet build --no-restore StoatBog.sln -p:Version=${{steps.version.outputs.version}}
     - name: Test
       run: dotnet test --no-build --verbosity normal StoatBog.sln
     - name: Publish
@@ -33,14 +39,4 @@ jobs:
     - name: Inno Setup Action
       uses: Minionguyjpro/Inno-Setup-Action@v1.2.7
       with:
-        path:  StoatBogInstaller.iss
-    - name: Get next version
-      uses: reecetech/version-increment@2024.10.1
-      id: version
-      with:
-        scheme: semver
-        increment: patch
-        release_branch: main
-    - name: Print Version Number
-      run: echo ${{steps.version.outputs.version}}
-        
+        path:  StoatBogInstaller.iss 
