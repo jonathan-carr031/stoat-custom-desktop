@@ -9,7 +9,9 @@
         Title="StoatBog"
         x:DataType="ui:MainWindow">
 
-    <NativeWebView Source="https://chat.whalestargroup.com" Focusable="False"
-                   NewWindowRequested="NewWindowRequested_EventHandler"
-                   />
+    <NativeWebView Name="StoatWebView"
+                   Source="https://chat.whalestargroup.com" Focusable="False"
+                   NavigationStarted="NavigationStarted_EventHandler"
+                   NavigationCompleted="NavigationCompleted_EventHandler"
+                   NewWindowRequested="NewWindowRequested_EventHandler" />
 </Window>

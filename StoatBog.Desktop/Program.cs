@@ -8,7 +8,7 @@ namespace StoatBog.Desktop;
 
 internal sealed class Program
 {
-    internal static readonly UpdatumManager AppUpdater = new("jonathan-carr031", "stoat-custom-desktop")
+    private static readonly UpdatumManager AppUpdater = new("jonathan-carr031", "stoat-custom-desktop")
     {
         InstallUpdateWindowsInstallerArguments = "/qb" // Displays a basic user interface for MSI package
     };
@@ -26,7 +26,7 @@ internal sealed class Program
     }
 
 
-    // Avalonia configuration, don't remove; also used by visual designer.
+    // Avalonia configuration, don't remove; also used by visual designer. 
     private static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
@@ -55,9 +55,11 @@ internal sealed class Program
                 return;
             }
 
-            // You can manually handle the installation or call the install method:
-            // Returns false if the installation failed otherwise it will never return true as the process will be terminated to complete the installation.
+#if !DEBUG
+            // You can manually handle the installation or call the installation method:
+            // Returns false if the installation failed, otherwise it will never return true as the process will be terminated to complete the installation.
             await AppUpdater.InstallUpdateAsync(downloadedAsset);
+#endif
         }
         catch (Exception ex)
         {
