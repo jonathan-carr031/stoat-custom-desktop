@@ -19,7 +19,7 @@ internal sealed class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        _ = CheckForUpdates();
+        // _ = CheckForUpdates();
 
         BuildAvaloniaApp()
             .StartWithClassicDesktopLifetime(args);
@@ -55,11 +55,9 @@ internal sealed class Program
                 return;
             }
 
-#if !DEBUG
             // You can manually handle the installation or call the installation method:
             // Returns false if the installation failed, otherwise it will never return true as the process will be terminated to complete the installation.
             await AppUpdater.InstallUpdateAsync(downloadedAsset);
-#endif
         }
         catch (Exception ex)
         {
