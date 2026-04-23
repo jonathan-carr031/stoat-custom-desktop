@@ -40,6 +40,7 @@ jobs:
       with:
         scheme: semver
         increment: patch
+        release_branch: main
     - name: Print Version Number
       run: echo ${{steps.version.outputs.version}}
         
