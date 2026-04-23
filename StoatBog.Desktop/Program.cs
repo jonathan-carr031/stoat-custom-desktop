@@ -19,7 +19,7 @@ internal sealed class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        // _ = CheckForUpdates();
+        _ = CheckForUpdates();
 
         BuildAvaloniaApp()
             .StartWithClassicDesktopLifetime(args);
