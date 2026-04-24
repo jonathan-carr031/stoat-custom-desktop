@@ -38,3 +38,29 @@ jobs:
       run: ren "publish/win-x64/StoatBog.Desktop.exe" "StoatBog.exe"
     - name: Create Installer
       run: iscc /DMyAppVersion="${{steps.version.outputs.version}}" "StoatBogInstaller.iss"
+      #      
+    - name: Create Draft Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{steps.version.outputs.version}}
+        release_name: v${{steps.version.outputs.version}}
+        draft: true
+        prerelease: false
+    
+    - uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./Output/StoatBog_win-x64-v${{steps.version.outputs.version}}.exe
+        asset_name: StoatBog_win-x64-v${{steps.version.outputs.version}}.exe
+        asset_content_type: application/exe
+
+    - uses: eregon/publish-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        release_id: ${{ steps.create_release.outputs.id }}
