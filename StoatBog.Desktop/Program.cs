@@ -19,7 +19,7 @@ internal sealed class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        _ = CheckForUpdates();
+        // _ = CheckForUpdates();
 
         BuildAvaloniaApp()
             .StartWithClassicDesktopLifetime(args);
@@ -30,9 +30,6 @@ internal sealed class Program
     private static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
-#if DEBUG
-            .WithDeveloperTools()
-#endif
             .WithInterFont()
             .LogToTrace();
 

@@ -2,21 +2,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ui="clr-namespace:AvaloniaApplication1.Views"
+        xmlns:viewModels="clr-namespace:AvaloniaApplication1.ViewModels"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AvaloniaApplication1.Views.MainWindow"
         Icon="/Assets/Images/icon.ico"
         Title="StoatBog"
-        x:DataType="ui:MainWindow">
+        x:DataType="viewModels:MainViewModel">
 
     <Panel Name="WebViewContainer"
            HorizontalAlignment="Stretch"
            VerticalAlignment="Stretch">
         <NativeWebView Name="StoatWebView"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Stretch"
                        Source="https://chat.whalestargroup.com" Focusable="False"
                        NavigationStarted="NavigationStarted_EventHandler"
                        NavigationCompleted="NavigationCompleted_EventHandler"
                        NewWindowRequested="NewWindowRequested_EventHandler" />
     </Panel>
-
 </Window>

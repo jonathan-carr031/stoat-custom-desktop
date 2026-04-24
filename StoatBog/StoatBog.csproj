@@ -22,15 +22,13 @@
             <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
         </PackageReference>
         <PackageReference Include="CommunityToolkit.Mvvm"/>
-        <PackageReference Include="LibVLCSharp.Avalonia" />
         <PackageReference Include="ReactiveUI" />
-        <PackageReference Include="Updatum" />
+        <PackageReference Include="Updatum"/>
     </ItemGroup>
 
     <PropertyGroup>
         <PublishSingleFile>true</PublishSingleFile>
         <SelfContained>true</SelfContained>
-        <PublishTrimmed>true</PublishTrimmed>
         <PublishReadyToRun>true</PublishReadyToRun>
     </PropertyGroup>
 </Project>
