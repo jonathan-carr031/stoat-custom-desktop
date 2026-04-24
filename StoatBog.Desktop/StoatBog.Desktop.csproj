@@ -5,7 +5,7 @@
         See https://docs.avaloniaui.net/docs/guides/platforms/platform-specific-code/dotnet for more details.-->
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
-        <RootNamespace>AvaloniaApplication1.Desktop</RootNamespace>
+        <includeSourceRevisionInInformationalVersion>false</includeSourceRevisionInInformationalVersion>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -19,7 +19,7 @@
             <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
             <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="VideoLAN.LibVLC.Windows" />
+        <PackageReference Include="Updatum"/>
     </ItemGroup>
 
     <ItemGroup>

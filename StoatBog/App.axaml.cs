@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -20,7 +21,7 @@ public partial class App : Application
         AvaloniaXamlLoader.Load(this);
 
         DataContext = new MainViewModel();
-        
+
         SetIcons();
     }
 
@@ -36,7 +37,7 @@ public partial class App : Application
             desktop.MainWindow.Closing += (s, e) =>
             {
                 if (e.CloseReason == WindowCloseReason.ApplicationShutdown) return;
-                
+
                 SetIcons();
 
                 e.Cancel = true;
@@ -85,6 +86,9 @@ public partial class App : Application
         var clickCommand = ReactiveCommand.Create(ShowWindow);
         var quitCommand = ReactiveCommand.Create(QuitApplication);
 
+        var version = Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+            ?.InformationalVersion;
+
         var icons = new TrayIcons
         {
             new TrayIcon
@@ -94,14 +98,13 @@ public partial class App : Application
                 Command = clickCommand,
                 Menu =
                 [
-                    /*new NativeMenuItem("Settings")
+                    new NativeMenuItem("About")
                     {
                         Menu =
                         [
-                            new NativeMenuItem("Option 1"),
-                            new NativeMenuItem("Option 2")
+                            new NativeMenuItem($"v{version}")
                         ]
-                    },*/
+                    },
                     new NativeMenuItemSeparator(),
                     new NativeMenuItem("Quit Application")
                     {
@@ -119,6 +122,9 @@ public partial class App : Application
         var clickCommand = ReactiveCommand.Create(ShowWindow);
         var quitCommand = ReactiveCommand.Create(QuitApplication);
 
+        var version = Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+            ?.InformationalVersion;
+
         var icons = new TrayIcons
         {
             new TrayIcon
@@ -128,14 +134,13 @@ public partial class App : Application
                 Command = clickCommand,
                 Menu =
                 [
-                    /*new NativeMenuItem("Settings")
+                    new NativeMenuItem("About")
                     {
                         Menu =
                         [
-                            new NativeMenuItem("Option 1"),
-                            new NativeMenuItem("Option 2")
+                            new NativeMenuItem($"v{version}")
                         ]
-                    },*/
+                    },
                     new NativeMenuItemSeparator(),
                     new NativeMenuItem("Quit Application")
                     {
