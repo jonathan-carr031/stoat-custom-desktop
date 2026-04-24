@@ -5,9 +5,9 @@ name: .NET
 
 on:
   push:
-    branches: [ "master", "dev" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "master", "dev"]
+    branches: [ "master" ]
 
 jobs:
   build:
@@ -38,7 +38,6 @@ jobs:
       run: ren "publish/win-x64/StoatBog.Desktop.exe" "StoatBog.exe"
     - name: Create Installer
       run: iscc /DMyAppVersion="${{steps.version.outputs.version}}" "StoatBogInstaller.iss"
-      #      
     - name: Create Draft Release
       id: create_release
       uses: actions/create-release@v1
