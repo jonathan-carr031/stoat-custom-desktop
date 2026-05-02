@@ -16,9 +16,13 @@ internal sealed class Program
     [STAThread]
     public static void Main(string[] args)
     {
+#if !DEBUG
         if (!Mutex.WaitOne(TimeSpan.Zero, true))
+        {
             // Another instance is already running
             return;
+        }
+#endif
 
 
         BuildAvaloniaApp()

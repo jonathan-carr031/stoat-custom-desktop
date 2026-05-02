@@ -3,6 +3,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Avalonia.Threading;
+using AvaloniaApplication1.ViewModels;
 using Updatum;
 
 namespace AvaloniaApplication1.Views;
@@ -15,6 +18,8 @@ public partial class MainWindow : Window
         InstallUpdateWindowsInstallerArguments = "/qb" // Displays a basic user interface for MSI package
     };
 
+    private readonly DispatcherTimer _timer = new();
+
     private readonly Panel? _webViewContainer;
     private NativeWebView? _nativeWebView;
     private DateTime _sessionExpirationDate = DateTime.Now;
@@ -25,24 +30,21 @@ public partial class MainWindow : Window
 
         _nativeWebView = this.FindControl<NativeWebView>("StoatWebView");
         _webViewContainer = this.FindControl<Panel>("WebViewContainer");
+
+        DataContext = new MainViewModel();
+
+        _timer.Interval = TimeSpan.FromSeconds(60);
+        _timer.Tick += async (_, _) => { await CheckSession(); };
+        _timer.Start();
     }
 
     private void NavigationStarted_EventHandler(object? sender, WebViewNavigationStartingEventArgs e)
     {
-        Console.WriteLine("NavigationStarted_EventHandler");
-
         _ = CheckSession();
-
-        Console.WriteLine(sender);
-        Console.WriteLine(e);
     }
 
     public void NavigationCompleted_EventHandler(object? sender, WebViewNavigationCompletedEventArgs e)
     {
-        Console.WriteLine("NavigationCompleted_EventHandler");
-        Console.WriteLine(sender);
-        Console.WriteLine(e);
-
         _ = CheckForUpdates();
     }
 
@@ -69,11 +71,15 @@ public partial class MainWindow : Window
         {
             var cookies = await cookieManager.GetCookiesAsync();
 
-            var authenticCookie = cookies.First(cookie => cookie.Name == "authentik_proxy_72cd35ff");
+            var authenticCookie = cookies.First(cookie => cookie.Name.StartsWith("authentik_proxy"));
 
             if (_sessionExpirationDate != authenticCookie.Expires)
             {
                 _sessionExpirationDate = authenticCookie.Expires;
+
+                if (DataContext is MainViewModel mainViewModel)
+                    mainViewModel.SessionExpirationDate = _sessionExpirationDate;
+
                 ReCreateWebView();
             }
         }
@@ -81,6 +87,7 @@ public partial class MainWindow : Window
 
     private void ReCreateWebView()
     {
+        Console.WriteLine("ReCreating View");
         _webViewContainer?.Children.Clear();
 
         var nativeWebView = new NativeWebView
@@ -97,29 +104,25 @@ public partial class MainWindow : Window
         _nativeWebView = nativeWebView;
     }
 
+    private void RefreshWebView(object? sender, RoutedEventArgs routedEventArgs)
+    {
+        Console.WriteLine("Refreshing View");
+        ReCreateWebView();
+    }
+
     private async Task CheckForUpdates()
     {
         try
         {
             var updateFound = await AppUpdater.CheckForUpdatesAsync();
-            if (!updateFound)
-            {
-                Console.WriteLine("No Updates Found!");
-                return;
-            }
-
-            Console.WriteLine("Changelog:");
-            Console.WriteLine(AppUpdater.GetChangelog());
+            if (!updateFound) return;
 
             var downloadedAsset = await AppUpdater.DownloadUpdateAsync();
 
-            if (downloadedAsset == null)
-            {
-                Console.WriteLine("Failed to download the update.");
-                return;
-            }
-
+            if (downloadedAsset == null) return;
+#if !DEBUG
             await AppUpdater.InstallUpdateAsync(downloadedAsset);
+#endif
         }
         catch (Exception ex)
         {
