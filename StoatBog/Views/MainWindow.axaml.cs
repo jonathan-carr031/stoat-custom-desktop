@@ -87,7 +87,6 @@ public partial class MainWindow : Window
 
     private void ReCreateWebView()
     {
-        Console.WriteLine("ReCreating View");
         _webViewContainer?.Children.Clear();
 
         var nativeWebView = new NativeWebView
@@ -120,9 +119,8 @@ public partial class MainWindow : Window
             var downloadedAsset = await AppUpdater.DownloadUpdateAsync();
 
             if (downloadedAsset == null) return;
-#if !DEBUG
+
             await AppUpdater.InstallUpdateAsync(downloadedAsset);
-#endif
         }
         catch (Exception ex)
         {
