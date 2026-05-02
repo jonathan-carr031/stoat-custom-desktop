@@ -32,7 +32,7 @@ jobs:
       - name: Test
         run: dotnet test --no-build --verbosity normal StoatBog.sln
       - name: Publish
-        run: dotnet publish -r win-x64 -f net9.0 --self-contained true -c Release -p:Version=${{steps.version.outputs.version}} -p:PublishSingleFile=true -p:PublishReadyToRun=true -p:PublishTrimmed=true -p:IncludeNativeLibrariesForSelfExtract=true -p:IncludeAllContentForSelfExtract=true -o publish/win-x64 "StoatBog.Desktop/StoatBog.Desktop.csproj"
+        run: dotnet publish -r win-x64 -f net9.0 --self-contained true -c Release -p:Version=${{steps.version.outputs.version}} -p:PublishSingleFile=true -p:PublishReadyToRun=true -p:IncludeNativeLibrariesForSelfExtract=true -p:IncludeAllContentForSelfExtract=true -o publish/win-x64 "StoatBog.Desktop/StoatBog.Desktop.csproj"
       - name: Rename Executable
         run: ren "publish/win-x64/StoatBog.Desktop.exe" "StoatBog.exe"
       - name: Create Installer
