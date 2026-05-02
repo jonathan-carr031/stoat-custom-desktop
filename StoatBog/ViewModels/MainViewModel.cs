@@ -22,7 +22,7 @@ public class MainViewModel : INotifyPropertyChanged
     }
 
     public string SessionExpirationDateString => SessionExpirationDate.ToString("MM/dd/yyyy hh:mm tt");
-    public bool IsSessionExpired => SessionExpirationDate > DateTime.Now;
+    public bool IsSessionExpired => SessionExpirationDate < DateTime.Now;
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
