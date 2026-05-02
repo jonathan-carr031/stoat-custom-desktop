@@ -3,7 +3,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Threading;
+using AvaloniaApplication1.ViewModels;
 using Updatum;
 
 namespace AvaloniaApplication1.Views;
@@ -29,8 +31,10 @@ public partial class MainWindow : Window
         _nativeWebView = this.FindControl<NativeWebView>("StoatWebView");
         _webViewContainer = this.FindControl<Panel>("WebViewContainer");
 
+        DataContext = new MainViewModel();
+
         _timer.Interval = TimeSpan.FromSeconds(60);
-        _timer.Tick += (s, e) => { _ = CheckSession(); };
+        _timer.Tick += async (_, _) => { await CheckSession(); };
         _timer.Start();
     }
 
@@ -72,6 +76,10 @@ public partial class MainWindow : Window
             if (_sessionExpirationDate != authenticCookie.Expires)
             {
                 _sessionExpirationDate = authenticCookie.Expires;
+
+                if (DataContext is MainViewModel mainViewModel)
+                    mainViewModel.SessionExpirationDate = _sessionExpirationDate;
+
                 ReCreateWebView();
             }
         }
@@ -79,6 +87,7 @@ public partial class MainWindow : Window
 
     private void ReCreateWebView()
     {
+        Console.WriteLine("ReCreating View");
         _webViewContainer?.Children.Clear();
 
         var nativeWebView = new NativeWebView
@@ -93,6 +102,12 @@ public partial class MainWindow : Window
         _webViewContainer?.Children.Add(nativeWebView);
 
         _nativeWebView = nativeWebView;
+    }
+
+    private void RefreshWebView(object? sender, RoutedEventArgs routedEventArgs)
+    {
+        Console.WriteLine("Refreshing View");
+        ReCreateWebView();
     }
 
     private async Task CheckForUpdates()
