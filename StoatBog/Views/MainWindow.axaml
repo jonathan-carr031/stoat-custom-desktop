@@ -20,6 +20,8 @@
             <MenuItem Header="Refresh View" IsVisible="{Binding IsSessionExpired }" Click="RefreshWebView" />
         </Menu>
 
+        <!-- TODO :  Add item for getting updates manually -->
+
         <Panel Name="WebViewContainer"
                HorizontalAlignment="Stretch"
                VerticalAlignment="Stretch">
