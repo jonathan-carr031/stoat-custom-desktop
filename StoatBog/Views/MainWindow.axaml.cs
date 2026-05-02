@@ -67,6 +67,7 @@ public partial class MainWindow : Window
     private async Task CheckSession()
     {
         var cookieManager = _nativeWebView?.TryGetCookieManager();
+
         if (cookieManager != null)
         {
             var cookies = await cookieManager.GetCookiesAsync();
@@ -120,7 +121,9 @@ public partial class MainWindow : Window
 
             if (downloadedAsset == null) return;
 
+#if !DEBUG
             await AppUpdater.InstallUpdateAsync(downloadedAsset);
+#endif
         }
         catch (Exception ex)
         {
